@@ -71,7 +71,7 @@ def victoire(grille, n_joueur, lig, col):
     compteur = 0
 
     for i in range(lig, 6):      # de la ligne du pion vers le bas
-        if grille[i][col] == joueur:
+        if grille[i][col] == n_joueur:
             compteur += 1
         else:
             break
@@ -128,4 +128,5 @@ while not fin: #boucle principale du jeu
 
     # changer de joueur
     else:
+
         joueur = 2 if joueur == 1 else 1 # changer de joueur
