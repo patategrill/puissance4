@@ -67,16 +67,34 @@ def diag_bas(grille, n_joueur, lig, col):
     return True
 """si il y a 4 pions d'alignés en diagonale vers le bas alors c'est true"""
 
-def victoire(grille, n_joueur, lig, col):
-    compteur = 0
+def victoire(grille, joueur, lig, col):
+    # verticale
+    if vertical(grille, joueur, lig, col): # vérifier la victoire verticale
+        return True
 
-    for i in range(lig, 6):      # de la ligne du pion vers le bas
-        if grille[i][col] == n_joueur:
-            compteur += 1
-        else:
-            break
+    # horizontale
+    for c in range(max(0, col-3), min(col+1, 4)): # vérifier la victoire horizontale
+        if horizontal(grille, joueur, lig, c):
+            return True
 
-    return compteur >= 4
+    # diagonale bas-droite
+    for i in range(-3, 1): # boucle pour vérifier la diagonale bas-droite
+        l = lig + i
+        c = col + i
+        if 0 <= l <= 2 and 0 <= c <= 3: # vérifier les limites de la grille
+            if diag_bas(grille, joueur, l, c): 
+                return True
+
+    # diagonale haut-droite
+    for i in range(-3, 1): # boucle pour vérifier la diagonale haut-droite
+        l = lig - i 
+        c = col + i
+        if 3 <= l <= 5 and 0 <= c <= 3: # vérifier les limites de la grille
+            if diag_haut(grille, joueur, l, c):
+                return True
+
+    return False
+
 
 """Vérifie si une des conditions des focntions est respectée, si c'est le cas c'est gagné (true)"""
 
@@ -129,4 +147,4 @@ while not fin: #boucle principale du jeu
     # changer de joueur
     else:
 
-        joueur = 2 if joueur == 1 else 1 # changer de joueur
+        joueur = 2 if joueur == 1 else 1 # changer de joueur1
